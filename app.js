@@ -7,6 +7,7 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var clientesRouter = require('./routes/clientes');
+var ventasRouter = require('./routes/ventas');
 
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false); //requerido para quitar el warning
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/clientes', clientesRouter);
+app.use('/ventas', ventasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
