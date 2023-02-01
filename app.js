@@ -8,6 +8,9 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var clientesRouter = require('./routes/clientes');
 var ventasRouter = require('./routes/ventas');
+var tiendasRouter = require('./routes/tiendas');
+var empleadosRouter = require('./routes/empleados');
+
 
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false); //requerido para quitar el warning
@@ -32,7 +35,7 @@ app.use('/', indexRouter);
 app.use('/clientes', clientesRouter);
 app.use('/ventas', ventasRouter);
 app.use('/empleados', empleadosRouter);
-
+app.use('/tiendasRouter', tiendasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
