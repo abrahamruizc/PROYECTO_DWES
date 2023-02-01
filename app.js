@@ -6,6 +6,7 @@ var logger = require('morgan');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
+var clientesRouter = require('./routes/clientes');
 var ventasRouter = require('./routes/ventas');
 
 var mongoose = require('mongoose');
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/clientes', clientesRouter);
 app.use('/ventas', ventasRouter);
 
 // catch 404 and forward to error handler
