@@ -20,4 +20,4 @@ var TiendaSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Producto', TiendaSchema);
+module.exports = mongoose.model('Tienda', TiendaSchema);
