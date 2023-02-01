@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var User = require('../models/Producto');
+var User = require('../models/Venta');
 var db = mongoose.connection;
 
 /* GET users listing. */
