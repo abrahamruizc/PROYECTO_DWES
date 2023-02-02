@@ -1,8 +1,4 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+/* LLEVABA 1 HORA BUSCANDO EL PROBLEMA Y ESTABA AQUI JAJAJ (Me estaba volviendo loco (-_-) ) */
+nav{
+  background-color: rgb(109, 129, 98);
 }

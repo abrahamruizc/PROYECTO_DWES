@@ -6,7 +6,7 @@ var logger = require('morgan');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
-var tiendasRouter = require('./routes/tiendas');
+var productosRouter = require('./routes/productos');
 
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false); //requerido para quitar el warning
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/tiendasRouter', tiendasRouter);
+app.use('/productosRouter', productosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
