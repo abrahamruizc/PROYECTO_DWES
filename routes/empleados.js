@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var Employee = require('../models/Empleado');
+var Empleado = require('../models/Empleado');
 var db = mongoose.connection;
 
 /* GET employees listing. */
