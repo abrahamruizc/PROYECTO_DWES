@@ -26,11 +26,14 @@ var VentaSchema = new Schema({
     linea: {
         type: {
             producto: {
-                type: Schema.ObjectId,
-                ref: 'Producto',
+                type: String,
                 required: true
             },
             cantidad: {
+                type: Number,
+                required: true
+            },
+            precio: {
                 type: Number,
                 required: true
             }
