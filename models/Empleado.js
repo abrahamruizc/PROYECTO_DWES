@@ -3,13 +3,6 @@ var Schema = mongoose.Schema;
 
 
 var EmpleadoSchema = new Schema({
-    ID_EMPLEADO: {
-        type: String,
-        required: true,
-        index: {
-            unique: true
-        }
-    },
     dni: {
         type: String,
         required: true,

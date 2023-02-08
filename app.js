@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/productosRouter', productosRouter);
+app.use('/productos', productosRouter);
 app.use('/clientes', clientesRouter);
 app.use('/ventas', ventasRouter);
 app.use('/empleados', empleadosRouter);
