@@ -1,9 +1,8 @@
-
 var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var Cliente= require('../models/Cliente');
+var Producto = require('../models/Producto');
 var db = mongoose.connection;
 
 /* GET users listing. */
