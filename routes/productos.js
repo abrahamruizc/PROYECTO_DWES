@@ -29,6 +29,18 @@ router.post("/", function (req, res, next) {
   });
 });
 
+/*PETICION PUT DE UN PRODUCTO PARA ACTUALIZAR LOS DATOS DE UN PRODUCTO POR SU ID*/
+router.put("/:id", function (req, res, next) {
+  Producto.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    function (err, productinfo) {
+      if (err) res.status(500).send(err);
+      else res.sendStatus(200);
+    }
+  );
+});
+
 /*PETICION DELETE DE UN PRODUCTO POR UNA ID*/
 router.delete("/:id", function (req, res, next) {
   Producto.findByIdAndDelete(req.params.id, function (err, productinfo) {
