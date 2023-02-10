@@ -10,6 +10,8 @@ var db = mongoose.connection;
 router.get("/", function (req, res, next) {
   Venta.find()
     .sort("-creationdate")
+    .populate("cliente")
+    .populate("empleado")
     .exec(function (err, ventas) {
       if (err) res.status(500).send(err);
       else res.status(200).json(ventas);
@@ -18,9 +20,13 @@ router.get("/", function (req, res, next) {
 
 // GET de una única Venta por su ID
 router.get("/:id", function (req, res, next) {
-  Venta.findById(req.params.id, function (err, venta) {
+  Venta.findById(req.params.id)
+  .sort("-creationdate")
+  .populate("cliente")
+  .populate("empleado")
+  .exec(function (err, ventas) {
     if (err) res.status(500).send(err);
-    else res.status(200).json(venta);
+    else res.status(200).json(ventas);
   });
 });
 
