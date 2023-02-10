@@ -45,7 +45,7 @@ router.put("/:id", function (req, res, next) {
 
 // DELETE (eliminar) de un cliente existente identificado por su Id
 
-router.delete("/borrar:id", function (req, res, next) {
+router.delete("/:id", function (req, res, next) {
   Cliente.findByIdAndDelete(req.params.id, function (err, clientinfo) {
     if (err) res.status(500).send(err);
     else res.sendStatus(200);
