@@ -13,6 +13,15 @@ router.get("/", function (req, res, next) {
   });
 });
 
+/*PETICION GET DE UN PRODUCTO POR UNA ID*/
+router.get("/:id", function (req, res, next) {
+  Producto.findById(req.params.id, function (err, productinfo) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(productinfo);
+  });
+});
+
+/*PETICION POST DE UN PRODUCTO*/
 router.post("/", function (req, res, next) {
   Producto.create(req.body, function (err, productinfo) {
     if (err) res.status(500).send(err);
@@ -20,7 +29,8 @@ router.post("/", function (req, res, next) {
   });
 });
 
-router.delete("/borrar:id", function (req, res, next) {
+/*PETICION DELETE DE UN PRODUCTO POR UNA ID*/
+router.delete("/:id", function (req, res, next) {
   Producto.findByIdAndDelete(req.params.id, function (err, productinfo) {
     if (err) res.status(500).send(err);
     else res.sendStatus(200);
