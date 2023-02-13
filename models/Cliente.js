@@ -5,20 +5,26 @@ var Schema = mongoose.Schema;
 var ClienteSchema = new Schema({
     dni: {
         type: String,
-        required: true,
         index: {
             unique: true
         }
+    },
+    correo_electronico: {
+        type: String,
+        required: true,
+        index:{
+            unique: true
+        }
+    },
+    contrasenia: {
+        type: String,
+        required: true
     },
     nombre: {
         type: String,
         required: true
     },
     apellidos: {
-        type: String,
-        required: true
-    },
-    correo_electronico: {
         type: String,
         required: true
     },

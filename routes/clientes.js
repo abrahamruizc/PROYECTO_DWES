@@ -23,6 +23,14 @@ router.get("/:id", function (req, res, next) {
   });
 });
 
+// GET (obtener) de un único cliente por su correo_electronico
+router.get("/email/:correo_electronico", function (req, res, next) {
+  Cliente.find({correo_electronico: req.params.correo_electronico}).exec(function (err, clientinfo) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(clientinfo);
+  });
+});
+
 // POST (crear) de un nuevo cliente
 router.post("/", function (req, res, next) {
   Cliente.create(req.body, function (err, clientinfo) {
@@ -57,17 +65,17 @@ router.delete("/:id", function (req, res, next) {
 
 // Comprueba si el usuario existe
 router.post("/signin", function (req, res, next) {
-  Cliente.findOne({ username: req.body.username }, function (err, cliente) {
+  Cliente.findOne({ username: req.body.nombre }, function (err, cliente) {
     if (err) res.status(500).send("!Error comprobando el usuario");
     // Si el usuario existe...
-    if (user != null) {
-      user.comparePassword(req.body.password, function (err, isMatch) {
+    if (Cliente != null) {
+      Cliente.comparePassword(req.body.password, function (err, isMatch) {
         if (err) return next(err);
         // Si el password es correcto ...
         if (isMatch)
           res.status(200).send({ message: "la password no coincide" });
       });
-    } else res.status(401).send({ message: "usuario no registrado" });
+    } else res.status(401).send({ message: "cliente no registrado" });
   });
 });
 */
