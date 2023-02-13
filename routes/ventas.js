@@ -30,6 +30,42 @@ router.get("/:id", function (req, res, next) {
   });
 });
 
+// GET de Ventas por Cliente
+router.get("/cliente/:cliente", function (req, res, next) {
+  Venta.find({cliente: req.params.cliente})
+  .sort("-creationdate")
+  .populate("cliente")
+  .populate("empleado")
+  .exec(function (err, ventas) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(ventas);
+  });
+});
+
+// GET de Ventas por Empleado
+router.get("/empleado/:empleado", function (req, res, next) {
+  Venta.find({empleado: req.params.empleado})
+  .sort("-creationdate")
+  .populate("cliente")
+  .populate("empleado")
+  .exec(function (err, ventas) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(ventas);
+  });
+});
+
+// GET de Ventas por fecha
+router.get("/fecha/:fecha", function (req, res, next) {
+  Venta.find({fecha: req.params.fecha})
+  .sort("-creationdate")
+  .populate("cliente")
+  .populate("empleado")
+  .exec(function (err, ventas) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(ventas);
+  });
+});
+
 // POST de una nueva Venta
 router.post("/", function (req, res, next) {
   Venta.create(req.body, function (err, venta) {
