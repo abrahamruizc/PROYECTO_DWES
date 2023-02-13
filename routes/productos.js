@@ -49,4 +49,26 @@ router.delete("/:id", function (req, res, next) {
   });
 });
 
+/*PETICION PUT DE PRODUCTO PARA AUMENTAR PRECIO 5%*/
+router.put("/actualizar/precio", function (req, res, next) {
+  Producto.updateMany(
+    {},
+    {$mul:{precio: 1.05}},
+    function (err, productinfo) {
+      if (err) res.status(500).send(err);
+      else res.sendStatus(200);
+    }
+  );
+});
+
+/*PETICION GET DE PRODUCTO POR CANTIDAD <*/
+router.get("/cantidad/:cantidad", function (req, res, next) {
+  Producto.find({stock: {$lte: req.params.cantidad}}, function (err, productinfo) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(productinfo);
+  });
+});
+
+
+
 module.exports = router;
