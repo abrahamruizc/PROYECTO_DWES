@@ -7,67 +7,27 @@ var Venta = require('../models/Venta');
 var db = mongoose.connection;
 
 // GET por defecto. Si tiene una query de Cliente, Empleado o Fecha,
-// se búscara aplicando dicho filtro. Si no, devolverá todas las Ventas
+// se buscará aplicando dicho filtro. Si no, devolverá todas las Ventas
 router.get("/", function (req, res, next) {
-  let parametro = req.query.cliente;
-  let parametroBusqueda = "cliente";
-  if (parametro == null) {
-    parametro = req.query.empleado;
-    parametroBusqueda = "empleado";
-    if (parametro == null) {
-      parametro = req.query.fecha;
-      parametroBusqueda = "fecha";
-      if (parametro == null) {
-        parametroBusqueda = "";
-      }
-    }
+  let { cliente, empleado, fecha } = req.query;
+  let query = {};
+
+  if (cliente) {
+    query.cliente = cliente;
+  } else if (empleado) {
+    query.empleado = empleado;
+  } else if (fecha) {
+    query.fecha = fecha;
   }
   
-  switch (parametroBusqueda) {
-    case "cliente":
-      Venta.find({cliente: parametro})
-      .sort("-creationdate")
-      .populate("cliente")
-      .populate("empleado")
-      .exec(function (err, ventas) {
-        if (err) res.status(500).send(err);
-        else res.status(200).json(ventas);
-      });
-      break;
-
-    case "empleado":
-      Venta.find({empleado: parametro})
-      .sort("-creationdate")
-      .populate("cliente")
-      .populate("empleado")
-      .exec(function (err, ventas) {
-        if (err) res.status(500).send(err);
-        else res.status(200).json(ventas);
-      });
-      break;
-
-    case "fecha":
-      Venta.find({fecha: parametro})
-      .sort("-creationdate")
-      .populate("cliente")
-      .populate("empleado")
-      .exec(function (err, ventas) {
-        if (err) res.status(500).send(err);
-        else res.status(200).json(ventas);
-      });
-      break;
-
-    default:
-      Venta.find()
-      .sort("-creationdate")
-      .populate("cliente")
-      .populate("empleado")
-      .exec(function (err, ventas) {
-        if (err) res.status(500).send(err);
-        else res.status(200).json(ventas);
-      });
-      break;
-  }
+  Venta.find(query)
+    .sort("-creationdate")
+    .populate("cliente")
+    .populate("empleado")
+    .exec(function (err, ventas) {
+    if (err) res.status(500).send(err);
+    else res.status(200).json(ventas);
+  });
 });
 
 // GET de una única Venta por su ID
