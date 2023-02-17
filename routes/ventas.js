@@ -6,16 +6,28 @@ var mongoose = require('mongoose');
 var Venta = require('../models/Venta');
 var db = mongoose.connection;
 
-// GET de todas las Ventas ordenadas por fecha de creación
+// GET por defecto. Si tiene una query de Cliente, Empleado o Fecha,
+// se buscará aplicando dicho filtro. Si no, devolverá todas las Ventas
 router.get("/", function (req, res, next) {
-  Venta.find()
+  let { cliente, empleado, fecha } = req.query;
+  let query = {};
+
+  if (cliente) {
+    query.cliente = cliente;
+  } else if (empleado) {
+    query.empleado = empleado;
+  } else if (fecha) {
+    query.fecha = fecha;
+  }
+  
+  Venta.find(query)
     .sort("-creationdate")
     .populate("cliente")
     .populate("empleado")
     .exec(function (err, ventas) {
-      if (err) res.status(500).send(err);
-      else res.status(200).json(ventas);
-    });
+    if (err) res.status(500).send(err);
+    else res.status(200).json(ventas);
+  });
 });
 
 // GET de una única Venta por su ID
