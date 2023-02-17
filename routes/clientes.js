@@ -4,6 +4,11 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var Cliente = require("../models/Cliente");
 var db = mongoose.connection;
+var bodyParser = require('body-parser')
+var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
 // GET (obtener) del listado de cliente ordenados por fecha de creación
 router.get("/", function (req, res, next) {
@@ -60,23 +65,48 @@ router.delete("/:id", function (req, res, next) {
   });
 });
 
-/*
-// POST de login de un cliente comprobando su usuario y contraseña
 
-// Comprueba si el usuario existe
-router.post("/signin", function (req, res, next) {
-  Cliente.findOne({ username: req.body.nombre }, function (err, cliente) {
-    if (err) res.status(500).send("!Error comprobando el usuario");
-    // Si el usuario existe...
-    if (Cliente != null) {
-      Cliente.comparePassword(req.body.password, function (err, isMatch) {
-        if (err) return next(err);
-        // Si el password es correcto ...
-        if (isMatch)
-          res.status(200).send({ message: "la password no coincide" });
-      });
-    } else res.status(401).send({ message: "cliente no registrado" });
+// POST de Registro y Login
+
+router.post("/:register", function(req,res){
+  const {dni,correo_electronico, contrasenia,nombre,apellidos,telefono,direccion} = req.body;
+
+  const cliente = new Cliente({dni,correo_electronico, contrasenia,nombre,apellidos,telefono,direccion});
+
+  cliente.save(err =>{
+    if(err){
+      res.status(500).send('ERROR AL REGISTRAR AL USUARIO')
+
+    }else{
+      res.status(200).send('USUARIO REGISTRADO')
+
+    }
   });
+
 });
-*/
+
+
+router.post("/:login", function(req,res){
+  const {correo_electronico, contrasenia} = req.body;
+
+  Cliente.findOne({correo_electronico}, function(err, clientinfo){
+    if(err){
+      res.status(500).send('ERROR AL LOGEARSE CON ESE USUARIO')
+    }else if(!clientinfo){
+      res.status(500).send('EL USUARIO NO EXISTE')
+    }else{
+      Cliente.isCorrectContrasenia(contrasenia, function(err, result){
+        if(err){
+          res.status(500).send('ERROR AL LOGEARSE')
+        }else if(result){
+          res.status(200).send('USUARIO REGISTRADO CORRECTAMENTE')
+        }else{
+          res.status(500).send('CORREO Y/O CONTRASEÑA INCORRECTA')
+        }
+      });
+    }
+  });
+
+});
+
 module.exports = router;
