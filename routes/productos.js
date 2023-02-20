@@ -61,6 +61,18 @@ router.put("/actualizar/precio", function (req, res, next) {
   );
 });
 
+
+router.put("/actualizar/precio/:nombre", function (req, res, next) {
+  Producto.updateOne(
+    {nombre: req.params.nombre},
+    {$mul:{precio: 1.10}},
+    function (err, productinfo) {
+      if (err) res.status(500).send(err);
+      else res.sendStatus(200);
+    }
+  );
+});
+
 /*PETICION GET DE PRODUCTO POR CANTIDAD <*/
 router.get("/cantidad/:cantidad", function (req, res, next) {
   Producto.find({stock: {$lte: req.params.cantidad}}, function (err, productinfo) {
