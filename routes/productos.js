@@ -86,9 +86,9 @@ router.get("/", function (req, res, next) {
   }
   
   Producto.find(query)
-    .exec(function (err, ventas) {
+    .exec(function (err, productinfo) {
     if (err) res.status(500).send(err);
-    else res.status(200).json(ventas);
+    else res.status(200).json(productinfo);
   });
 });
 
