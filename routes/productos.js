@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+var {body, validationResult} = require('express-validator');
 var mongoose = require("mongoose");
 var Producto = require("../models/Producto");
 var db = mongoose.connection;
@@ -22,11 +22,20 @@ router.get("/:id", function (req, res, next) {
 });
 
 /*PETICION POST DE UN PRODUCTO*/
-router.post("/", function (req, res, next) {
-  Producto.create(req.body, function (err, productinfo) {
-    if (err) res.status(500).send(err);
-    else res.sendStatus(200);
-  });
+router.post("/",[
+  body('nombre', 'Ingresa un nombre valido').exists().isLength({min:8}),
+  body('stock', 'Ingresa un numero de stock valido').exists().isNumeric(),
+  body('precio', 'Ingresa un precio valido').exists().isNumeric()
+], function (req, res) {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+  Producto.create({
+      nombre: req.body.nombre,
+      stock: req.body.stock,
+      precio: req.body.precio,
+    }).then(Producto => res.json(Producto));
 });
 
 /*PETICION PUT DE UN PRODUCTO PARA ACTUALIZAR LOS DATOS DE UN PRODUCTO POR SU ID*/
