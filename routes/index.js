@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Plantitas_SL' });
 });
 
+/* GET del layout validacionde producto */
+router.get('/productos.ejs', function(req, res, next) {
+  res.render('productos', { title: 'Plantitas_SL', layout: './productos.ejs' });
+});
+
 module.exports = router;
