@@ -33,6 +33,29 @@
 
     </div>
 
+    <div class="container mt-4">
+      <form action="/productos" method="POST">
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" required></p>
+        </div>
+
+        <div class="mb-3">
+          <label for="stock" class="form-label">Stock</label>
+          <input class="form-control" type="text" placeholder="Stock" id="stock" name="stock" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="precio" class="form-label">Precio</label>
+          <input class="form-control" type="text" placeholder="Precio" id="precio" name="precio" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Registro</button>
+      </form>
+
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
