@@ -43,7 +43,7 @@ Cliente.create({
 
 
 
-//PETICION GET DE TODOS LOS CLIENTES
+//PETICION GET DE LOS CLIENTES
 router.get("/", function (req, res, next) {
   let { dni, correo_electronico, contrasenia, nombre, apellidos, telefono, direccion} = req.query;
   console.log(dni, correo_electronico, contrasenia, nombre, apellidos, telefono, direccion);
