@@ -5,9 +5,6 @@ var mongoose = require("mongoose");
 var Producto = require("../models/Producto");
 var db = mongoose.connection;
 var app = express();
-
-
-const {body, validationResult} = require('express-validator');
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}));
