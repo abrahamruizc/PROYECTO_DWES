@@ -84,6 +84,7 @@ router.get("/fecha", function (req, res, next) {
     });
 });
 
+
 // GET (obtener) de un único cliente por su Id
 router.get("/:id", function (req, res, next) {
   Cliente.findById(req.params.id, function (err, clientinfo) {
