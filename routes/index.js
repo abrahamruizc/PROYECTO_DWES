@@ -11,4 +11,9 @@ router.get('/productos.ejs', function(req, res, next) {
   res.render('productos', { title: 'Plantitas_SL', layout: './productos.ejs' });
 });
 
+/* GET del layout validaciones cliente */
+router.get('/clientes.ejs', function(req, res, next) {
+  res.render('clientes', { title: 'Plantitas_SL', layout: './clientes.ejs' });
+});
+
 module.exports = router;

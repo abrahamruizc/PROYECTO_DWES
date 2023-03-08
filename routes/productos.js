@@ -4,6 +4,11 @@ var {body, validationResult} = require('express-validator');
 var mongoose = require("mongoose");
 var Producto = require("../models/Producto");
 var db = mongoose.connection;
+var app = express();
+app.use(express.json());
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended:true}));
+
 
 /*PETICION GET DE TODOS LOS PRODUCTOS(SIN FILTROS)*/
 // router.get("/", function (req, res, next) {
@@ -88,6 +93,23 @@ router.get("/cantidad/:cantidad", function (req, res, next) {
     if (err) res.status(500).send(err);
     else res.status(200).json(productinfo);
   });
+});
+
+/*PETICION POST DE UN PRODUCTO*/
+router.post("/",[
+  body('nombre', 'Ingresa un nombre valido').exists().isLength({min:8}),
+  body('stock', 'Ingresa un numero de stock valido').exists().isNumeric(),
+  body('precio', 'Ingresa un precio valido').exists().isNumeric()
+], function (req, res) {
+    const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+  Producto.create({
+      nombre: req.body.nombre,
+      stock: req.body.stock,
+      precio: req.body.precio,
+    }).then(Producto => res.json(Producto));
 });
 
 /*PETICION GET DE TODOS LOS PRODUCTOS PUDIENDO USAR QUERYS, 
